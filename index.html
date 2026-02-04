@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>artist portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500&family=Arial:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #e0e0e0;
+            --hover: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: 1001;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 50px;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: lowercase;
+            z-index: 1002;
+        }
+
+        .menu-toggle {
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            position: absolute;
+            right: 50px;
+            top: 20px;
+            z-index: 1002;
+            flex-shrink: 0;
+        }
+
+        .menu-toggle span {
+            position: absolute;
+            width: 24px;
+            height: 1px;
+            background: var(--text);
+            left: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) { top: 10px; }
+        .menu-toggle span:nth-child(2) { top: 16px; }
+        .menu-toggle span:nth-child(3) { top: 22px; }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 16px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 16px;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding-top: 96px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: 1000;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dropdown-menu.active {
+            max-height: 400px;
+        }
+
+        .menu-content {
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .menu-items a,
+        .menu-items .social-link {
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 400;
+            text-transform: lowercase;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown-menu.active .menu-items a,
+        .dropdown-menu.active .menu-items .social-link {
+            animation: fadeInDown 0.4s ease forwards;
+        }
+
+        .menu-items a:nth-child(1) { animation-delay: 0.05s; }
+        .menu-items a:nth-child(2) { animation-delay: 0.1s; }
+        .menu-items a:nth-child(3) { animation-delay: 0.15s; }
+        .menu-items a:nth-child(4) { animation-delay: 0.2s; }
+        .menu-items .social-link { animation-delay: 0.25s; }
+
+        @keyframes fadeInDown {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .menu-items a:hover,
+        .menu-items .social-link:hover {
+            color: #666;
+        }
+
+        .menu-items .social-link {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .menu-items svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text);
+            transition: stroke 0.3s ease;
+        }
+
+        .menu-items .social-link:hover svg {
+            stroke: #666;
+        }
+
+        /* Main Content */
+
+        /* Info Section */
+
+        .info-section {
+            padding: 80px 50px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-section.hidden {
+            display: none;
+        }
+
+        .info-content h2 {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: lowercase;
+        }
+
+        .info-content p {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        main {
+            margin-top: 96px;
+            min-height: 100vh;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 80px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 60px;
+        }
+
+        .gallery-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item:nth-child(odd) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(even) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: #fafafa;
+        }
+
+        .gallery-image {
+            width: 100%;
+            display: block;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .image-container:hover .gallery-image {
+            transform: scale(1.03);
+        }
+
+        .gallery-caption {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .menu-content {
+                gap: 40px;
+            }
+
+            .menu-items {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content,
+            .gallery {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .menu-toggle {
+                right: 25px;
+            }
+
+            .gallery {
+                padding: 50px 25px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-items {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .menu-content {
+                padding: 20px 0;
+            }
+        }
+
+        /* Cursor Effect */
+        @media (pointer: fine) and (min-width: 769px) {
+            .image-container {
+                cursor: default;
+            }
+
+            .custom-cursor {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .custom-cursor {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- custom cursor disabled -->
+
+    <header>
+        <div class="header-content">
+            <div class="logo">Marie Viktoriia</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+        <div class="menu-content">
+            <div class="menu-items">
+                <a href="#" data-filter="performance">performances</a>
+                <a href="#" data-filter="project">projects</a>
+                <a href="#info">info</a>
+                <a href="#" data-filter="press">press</a>
+                <a href="https://www.instagram.com/babemarieviktoriia?igsh=YW01eGlub3NuYTR0" target="_blank" class="social-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="gallery">
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="performance">
+                    <div class="image-container">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%23fafafa' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-size='13' fill='%23999' opacity='0.6'%3EPerformance 2024%3C/text%3E%3C/svg%3E" alt="Performance 2024" class="gallery-image">
+                    </div>
+                    <div class="gallery-caption">performance 2024</div>
+                </div>
+
+                <div class="gallery-item" data-category="project">
+                    <div class="image-container">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect fill='%23fafafa' width='800' height='1000'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-size='13' fill='%23999' opacity='0.6'%3EProject Archive%3C/text%3E%3C/svg%3E" alt="Project Archive" class="gallery-image">
+                    </div>
+                    <div class="gallery-caption">project archive</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="info" class="info-section hidden">
+            <div class="info-content">
+                <h2>info</h2>
+                <p>Marie Viktoriia — experimental artist, performer, and researcher working with space.</p>
+                <p>Based in Asia / Europe.</p>
+                <p>Contact: marie@example.com</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuToggle.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                dropdownMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!dropdownMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                dropdownMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+
+        if (window.matchMedia('(pointer: fine) and (min-width: 769px)').matches) {
+            const cursor = document.querySelector('.custom-cursor');
+            const imageContainers = document.querySelectorAll('.image-container');
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 40 + 'px';
+                cursor.style.top = e.clientY - 40 + 'px';
+            });
+
+            imageContainers.forEach(container => {
+                container.addEventListener('mouseenter', () => cursor.classList.add('active'));
+                container.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+            });
+        }
+
+        /* Category filter + animation */
+
+        const infoLink = document.querySelector('.menu-items a[href="#info"]');
+        const infoSection = document.getElementById('info');
+        const menuLinks = document.querySelectorAll('.menu-items a[data-filter]');
+        const items = document.querySelectorAll('.gallery-item');
+        const gallerySection = document.querySelector('.gallery');
+
+        function showItems(filter) {
+            items.forEach(item => {
+                item.classList.remove('visible');
+
+                if (filter === 'all' || item.dataset.category === filter) {
+                    item.style.display = 'block';
+
+                    requestAnimationFrame(() => {
+                        item.classList.add('visible');
+                    });
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const filter = link.dataset.filter;
+
+                infoSection.classList.add('hidden');
+                gallerySection.style.display = 'block';
+
+                showItems(filter);
+
+                dropdownMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+
+        infoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            infoSection.classList.remove('hidden');
+            gallerySection.style.display = 'none';
+
+            window.scrollTo({
+                top: infoSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
+
+            dropdownMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+        });
+
+        /* Initial reveal */
+        window.addEventListener('load', () => {
+            showItems('all');
+        });
+    </script>
+</body>
+</html>
