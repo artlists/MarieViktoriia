@@ -225,6 +225,23 @@
         }
 
         /* Gallery */
+        .video-link {
+            position: relative;
+            display: block;
+        }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
         .gallery {
             padding: 80px 50px;
             max-width: 100%;
@@ -384,39 +401,30 @@
 
     <div class="gallery-item" data-category="performance">
         <div class="image-container">
-            <iframe class="gallery-image"
-                src="https://www.youtube-nocookie.com/embed/aFO2vUTgmKI?rel=0"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
+          <a href="https://www.youtube.com/watch?v=aFO2vUTgmKI" target="_blank" class="video-link">
+            <img src="https://img.youtube.com/vi/aFO2vUTgmKI/hqdefault.jpg" class="gallery-image">
+            <div class="play-overlay">▶</div>
+          </a>
         </div>
         <div class="gallery-caption">carrot and stick, 2025</div>
     </div>
 
     <div class="gallery-item" data-category="performance">
         <div class="image-container">
-            <iframe class="gallery-image"
-                src="https://www.youtube-nocookie.com/embed/2KFoyd2YaL8?rel=0"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
+          <a href="https://www.youtube.com/watch?v=2KFoyd2YaL8" target="_blank" class="video-link">
+            <img src="https://img.youtube.com/vi/2KFoyd2YaL8/hqdefault.jpg" class="gallery-image">
+            <div class="play-overlay">▶</div>
+          </a>
         </div>
         <div class="gallery-caption">THE ANTI-MASTRBATION CROSS, 2025</div>
     </div>
 
     <div class="gallery-item" data-category="performance">
         <div class="image-container">
-            <iframe class="gallery-image"
-                src="https://www.youtube-nocookie.com/embed/1iBAMnVBhl4?rel=0"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
+          <a href="https://www.youtube.com/watch?v=1iBAMnVBhl4" target="_blank" class="video-link">
+            <img src="https://img.youtube.com/vi/1iBAMnVBhl4/hqdefault.jpg" class="gallery-image">
+            <div class="play-overlay">▶</div>
+          </a>
         </div>
         <div class="gallery-caption">
             I wish I could give birth to cat, 2025<br><br>
