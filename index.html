@@ -21,6 +21,9 @@
             visibility: hidden;
             pointer-events: none;
         }
+        body:not(.ready) .dropdown-menu {
+            display: none !important;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -1129,9 +1132,9 @@ infoLink.addEventListener('click', (e) => {
 
         /* Initial reveal */
         window.addEventListener('load', () => {
-            document.body.classList.add('ready');
-            // Force-hide menu before first render
-            dropdownMenu.classList.remove('active');
+            setTimeout(() => {
+                document.body.classList.add('ready');
+            }, 300);
 
             const header = document.querySelector('header, .site-header');
             if (header) {
