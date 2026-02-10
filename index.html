@@ -223,6 +223,43 @@
             margin-bottom: 12px;
             line-height: 1.6;
         }
+
+        /* Info links styling */
+        .info-content a {
+            color: #000;
+            text-decoration: none;
+            position: relative;
+            background: linear-gradient(
+                120deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(255,255,255,0.9) 50%,
+                transparent 60%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            transition: background-position 0.6s ease, color 0.3s ease;
+        }
+
+        .info-content a:hover {
+            background-position: 0 0;
+            color: #000;
+        }
+
+        /* Instagram links in project descriptions */
+        .insta-link {
+            color: #000;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            transition: border-color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .insta-link:hover {
+            border-color: #000;
+            opacity: 0.7;
+        }
         main {
             margin-top: 64px;
             min-height: 100vh;
@@ -527,10 +564,16 @@
 
     <div class="gallery-item" data-category="project">
         <div class="gallery-caption">
-            who controls codependency? and why emotions are so hidden from the one who's experiencing them?<br>
-            PERFORMED BY @babemariaj and @vulgarways<br>
-            CREATED BY @mpalamarcuk and @milo2001.xyz
-        </div>
+who controls codependency? and why emotions are so hidden from the one who's experiencing them?<br>
+PERFORMED BY 
+<a href="https://www.instagram.com/babemariaj" target="_blank" class="insta-link">babemariaj</a> 
+and 
+<a href="https://www.instagram.com/vulgarways" target="_blank" class="insta-link">vulgarways</a><br>
+CREATED BY 
+<a href="https://www.instagram.com/mpalamarcuk" target="_blank" class="insta-link">mpalamarcuk</a> 
+and 
+<a href="https://www.instagram.com/milo2001.xyz" target="_blank" class="insta-link">milo2001.xyz</a>
+</div>
         <div class="image-container">
             <img src="project1.JPG" class="gallery-image" loading="lazy" alt="">
         </div>
@@ -556,7 +599,11 @@
 
     <div class="gallery-item" data-category="project">
         <div class="gallery-caption">
-In this series, visual artist Marie Viktoriia [@babemarieviktoriia] and photographer [@burjmak] stage a quiet confrontation between desire, control, and sanctity. Shot in the intimacy of a hotel room, the images draw on religious iconography and fetish aesthetics to question how vulnerability and power coexist within the same frame. Lace, fur, and restraint become visual metaphors, not merely for seduction, but for the ways femininity is read, performed, and consumed. Viktoriia's gaze refuses simplification; each gesture oscillates between offering and defiance, between obedience and domination.
+In this series, visual artist Marie Viktoriia 
+<a href="https://www.instagram.com/babemarieviktoriia" target="_blank" class="insta-link">babemarieviktoriia</a> 
+and photographer 
+<a href="https://www.instagram.com/burjmak" target="_blank" class="insta-link">burjmak</a> 
+stage a quiet confrontation between desire, control, and sanctity. Shot in the intimacy of a hotel room, the images draw on religious iconography and fetish aesthetics to question how vulnerability and power coexist within the same frame. Lace, fur, and restraint become visual metaphors, not merely for seduction, but for the ways femininity is read, performed, and consumed. Viktoriia's gaze refuses simplification; each gesture oscillates between offering and defiance, between obedience and domination.
         </div>
 
         <div class="image-container">
