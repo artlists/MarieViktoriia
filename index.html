@@ -609,9 +609,16 @@
     .lightbox-next {
         position: absolute;
         color: #fff;
-        font-size: 28px;
+        font-size: 36px;
         cursor: pointer;
         user-select: none;
+        padding: 16px;
+        background: rgba(0,0,0,0.4);
+        border-radius: 50%;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .lightbox-close {
@@ -962,6 +969,8 @@ const lightboxNext = document.getElementById('lightboxNext');
 
 let lightboxImages = [];
 let currentIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
 
 function initLightbox() {
     lightboxImages = Array.from(
@@ -1008,6 +1017,29 @@ lightboxNext.addEventListener('click', showNext);
 lightbox.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox();
 });
+
+/* Touch swipe support */
+
+lightbox.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+lightbox.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) < 50) return;
+
+    if (diff > 0) {
+        showNext();
+    } else {
+        showPrev();
+    }
+}
 
 document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('active')) return;
