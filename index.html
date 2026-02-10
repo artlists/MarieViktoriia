@@ -560,14 +560,15 @@
         box-sizing: border-box;
     }
 
-    .project-modal-close {
-        position: absolute;
-        top: 24px;
-        right: 24px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #000;
-    }
+        .project-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 32px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            z-index: 10001;
+        }
 
     /* Lightbox */
 
@@ -591,24 +592,26 @@
         object-fit: contain;
     }
 
-    .lightbox-close,
-    .lightbox-prev,
-    .lightbox-next {
-        position: absolute;
-        color: #fff;
-        font-size: 22px;
-        cursor: pointer;
-        user-select: none;
-        background: none;
-        border-radius: 0;
-        line-height: 1;
-        padding: 0;
-    }
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            user-select: none;
+            background: none;
+            border-radius: 0;
+            line-height: 1;
+            padding: 0;
+        }
 
-    .lightbox-close {
-        top: 20px;
-        right: 24px;
-    }
+        .lightbox-close {
+            top: 14px;
+            right: 32px;
+            width: 28px;
+            height: 28px;
+        }
 
     .lightbox-prev {
         left: 24px;
@@ -648,7 +651,7 @@
 
     <header>
         <div class="header-content">
-            <div class="logo">Marie Viktoriia</div>
+            <div class="logo" id="siteTitle">Marie Viktoriia</div>
             <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0">
                 <span></span>
                 <span></span>
@@ -846,12 +849,20 @@
     </main>
 
     <div class="project-modal" id="projectModal">
-        <div class="project-modal-close" id="closeProject">✕</div>
+        <div class="project-modal-close menu-toggle" id="closeProject">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <div class="project-modal-content" id="projectContent"></div>
     </div>
 
     <div class="lightbox" id="lightbox">
-        <div class="lightbox-close" id="lightboxClose">✕</div>
+        <div class="lightbox-close menu-toggle" id="lightboxClose">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <div class="lightbox-prev" id="lightboxPrev">‹</div>
         <img id="lightboxImage" src="">
         <div class="lightbox-next" id="lightboxNext">›</div>
@@ -943,20 +954,95 @@
             });
         });
 
-        infoLink.addEventListener('click', (e) => {
-            e.preventDefault();
+infoLink.addEventListener('click', (e) => {
+    e.preventDefault();
 
-            infoSection.classList.remove('hidden');
-            gallerySection.style.display = 'none';
+    // Update active state
+    menuLinks.forEach(l => l.classList.remove('active'));
+    infoLink.classList.add('active');
 
-            window.scrollTo({
-                top: infoSection.offsetTop - 80,
-                behavior: 'smooth'
-            });
+    infoSection.classList.remove('hidden');
+    gallerySection.style.display = 'none';
 
-            dropdownMenu.classList.remove('active');
-            menuToggle.classList.remove('active');
-        });
+    window.scrollTo({
+        top: infoSection.offsetTop - 80,
+        behavior: 'smooth'
+    });
+
+    dropdownMenu.classList.remove('active');
+    menuToggle.classList.remove('active');
+});
+
+        /* Trackpad / touchpad swipe navigation (horizontal scroll) */
+
+        let swipeStartX = 0;
+        let swipeEndX = 0;
+        let isSwiping = false;
+
+        let lastSwipeTime = 0;
+        document.addEventListener('wheel', e => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+
+                const now = Date.now();
+                if (now - lastSwipeTime < 600) return;
+
+                swipeEndX = e.deltaX;
+
+                if (Math.abs(swipeEndX) > 30) {
+                    handleTrackpadSwipe(swipeEndX);
+                    lastSwipeTime = now;
+                }
+            }
+        }, { passive: true });
+
+        let categories = Array.from(
+            document.querySelectorAll('.menu-items a')
+        ).map(link => {
+            if (link.dataset.filter) return link.dataset.filter;
+
+            if (link.getAttribute('href') === '#info') return 'info';
+
+            if (link.dataset.section) return link.dataset.section;
+
+            return null;
+        }).filter(Boolean);
+
+        function handleTrackpadSwipe(deltaX) {
+            const activeLink = document.querySelector('.menu-items a.active');
+            if (!activeLink) return;
+
+            if (activeLink.getAttribute('href') === '#info') {
+                activeLink.dataset.filter = 'info';
+            }
+
+            let current = activeLink.dataset.filter;
+
+            if (!current && activeLink.getAttribute('href') === '#info') {
+                current = 'info';
+            }
+
+            let currentIndex = categories.indexOf(current);
+
+            if (currentIndex === -1) return;
+
+            if (deltaX > 0) {
+                // swipe left → next
+                currentIndex = Math.min(currentIndex + 1, categories.length - 1);
+            } else {
+                // swipe right → prev
+                currentIndex = Math.max(currentIndex - 1, 0);
+            }
+
+            const nextCategory = categories[currentIndex];
+            let nextLink =
+                document.querySelector('.menu-items a[data-filter="' + nextCategory + '"]') ||
+                document.querySelector('.menu-items a[href="#' + nextCategory + '"]');
+
+            if (nextLink && !nextLink.classList.contains('active')) {
+                nextLink.click();
+            }
+        }
+
 
         /* Initial reveal */
         window.addEventListener('load', () => {
@@ -995,11 +1081,13 @@ function openLightbox(index) {
     currentIndex = index;
     lightboxImg.src = lightboxImages[index].src;
     lightbox.classList.add('active');
+    lightboxClose.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     lightbox.classList.remove('active');
+    lightboxClose.classList.remove('active');
     document.body.style.overflow = '';
 }
 
@@ -1100,6 +1188,8 @@ const projectsData = {
     `
 };
 
+const siteTitle = document.getElementById('siteTitle');
+const defaultTitle = siteTitle.textContent;
 const modal = document.getElementById('projectModal');
 const content = document.getElementById('projectContent');
 const closeBtn = document.getElementById('closeProject');
@@ -1110,20 +1200,28 @@ document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
         if (projectsData[id]) {
             content.innerHTML = projectsData[id];
             modal.classList.add('active');
+            closeBtn.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            const title = content.querySelector('h2');
+            if (title) siteTitle.textContent = title.textContent;
         }
     });
 });
 
 closeBtn.addEventListener('click', () => {
     modal.classList.remove('active');
+    closeBtn.classList.remove('active');
     document.body.style.overflow = '';
+    siteTitle.textContent = defaultTitle;
 });
 
 modal.addEventListener('click', e => {
     if (e.target === modal) {
         modal.classList.remove('active');
+        closeBtn.classList.remove('active');
         document.body.style.overflow = '';
+        siteTitle.textContent = defaultTitle;
     }
 });
     </script>
