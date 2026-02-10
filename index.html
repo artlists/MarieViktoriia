@@ -32,6 +32,7 @@
             color: var(--text);
             line-height: 1.5;
             overflow-x: hidden;
+            max-width: 100vw;
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
         }
@@ -288,8 +289,9 @@
         }
         .gallery {
             padding: 80px 50px;
-            max-width: 100%;
+            max-width: 100vw;
             margin: 0 auto;
+            overflow-x: hidden;
         }
 
         .gallery-grid {
@@ -427,6 +429,37 @@
             .menu-content {
                 padding: 20px 0;
             }
+
+            /* Mobile layout fixes */
+
+            .gallery {
+                padding: 40px 16px;
+            }
+
+            .gallery-grid {
+                gap: 48px;
+            }
+
+            .image-container {
+                padding-top: 66.6%; /* taller ratio for mobile */
+            }
+
+            .project-modal-content {
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                padding: 20px 16px;
+            }
+
+            .project-modal {
+                align-items: flex-start;
+            }
+
+            body {
+                overscroll-behavior-x: none;
+            }
         }
 
         /* Cursor Effect */
@@ -445,6 +478,77 @@
                 display: none !important;
             }
         }
+    /* Project banners (album style) */
+
+    .project-banner {
+        cursor: pointer;
+    }
+
+    /* Project banner bottom caption */
+
+    .project-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.92);
+        padding: 14px 18px;
+        text-align: left;
+        border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .project-banner:hover .project-overlay {
+        background: rgba(255,255,255,0.97);
+    }
+
+    .project-overlay h3 {
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 2px;
+        color: #000;
+    }
+
+    .project-overlay p {
+        font-size: 12px;
+        color: #555;
+        line-height: 1.4;
+    }
+
+    /* Project Modal */
+
+    .project-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(255,255,255,0.96);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+
+    .project-modal.active {
+        display: flex;
+    }
+
+    .project-modal-content {
+        max-width: 900px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: #fff;
+        color: #000;
+        padding: 32px;
+        box-sizing: border-box;
+    }
+
+    .project-modal-close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #000;
+    }
     </style>
 </head>
 <body>
@@ -583,70 +687,24 @@
 
     <!-- PROJECTS -->
 
-    <div class="gallery-item" data-category="project">
+
+    <div class="gallery-item project-banner" data-category="project" data-project="project2">
         <div class="image-container">
-            <iframe class="gallery-image vimeo-video"
-                src="https://player.vimeo.com/video/1049629390"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
+            <img src="project3.JPG" class="gallery-image" loading="lazy" alt="Who controls codependency project">
+            <div class="project-overlay">
+                <h3>Who Controls Codependency?</h3>
+                <p>Performance & documentation series</p>
+            </div>
         </div>
     </div>
 
-    <div class="gallery-item" data-category="project">
-        <div class="gallery-caption">
-who controls codependency? and why emotions are so hidden from the one who's experiencing them?<br>
-PERFORMED BY 
-<a href="https://www.instagram.com/babemariaj" target="_blank" class="insta-link">babemariaj</a> 
-and 
-<a href="https://www.instagram.com/vulgarways" target="_blank" class="insta-link">vulgarways</a><br>
-CREATED BY 
-<a href="https://www.instagram.com/mpalamarcuk" target="_blank" class="insta-link">mpalamarcuk</a> 
-and 
-<a href="https://www.instagram.com/milo2001.xyz" target="_blank" class="insta-link">milo2001.xyz</a>
-</div>
+    <div class="gallery-item project-banner" data-category="project" data-project="project3">
         <div class="image-container">
-            <img src="project1.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-
-        <div class="image-container">
-            <img src="project3.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-
-        <div class="image-container">
-            <img src="project4.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-
-        <div class="image-container">
-            <img src="project5.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-    </div>
-
-
-
-    <div class="gallery-item" data-category="project">
-        <div class="gallery-caption">
-In this series, visual artist Marie Viktoriia 
-<a href="https://www.instagram.com/babemarieviktoriia" target="_blank" class="insta-link">babemarieviktoriia</a> 
-and photographer 
-<a href="https://www.instagram.com/burjmak" target="_blank" class="insta-link">burjmak</a> 
-stage a quiet confrontation between desire, control, and sanctity. Shot in the intimacy of a hotel room, the images draw on religious iconography and fetish aesthetics to question how vulnerability and power coexist within the same frame. Lace, fur, and restraint become visual metaphors, not merely for seduction, but for the ways femininity is read, performed, and consumed. Viktoriia's gaze refuses simplification; each gesture oscillates between offering and defiance, between obedience and domination.
-        </div>
-
-        <div class="image-container">
-            <img src="project6.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-
-        <div class="image-container">
-            <img src="project7.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-
-        <div class="image-container">
-            <img src="project8.JPG" class="gallery-image" loading="lazy" alt="">
-        </div>
-
-        <div class="image-container">
-            <img src="project9.JPG" class="gallery-image" loading="lazy" alt="">
+            <img src="project6.JPG" class="gallery-image" loading="lazy" alt="Desire and Sanctity project">
+            <div class="project-overlay">
+                <h3>Desire & Sanctity</h3>
+                <p>Photography & visual narrative</p>
+            </div>
         </div>
     </div>
 
@@ -693,6 +751,11 @@ stage a quiet confrontation between desire, control, and sanctity. Shot in the i
 </div>
         </section>
     </main>
+
+    <div class="project-modal" id="projectModal">
+        <div class="project-modal-close" id="closeProject">✕</div>
+        <div class="project-modal-content" id="projectContent"></div>
+    </div>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -799,6 +862,72 @@ stage a quiet confrontation between desire, control, and sanctity. Shot in the i
         window.addEventListener('load', () => {
             showItems('performance');
         });
+    </script>
+    <script>
+const projectsData = {
+    project2: `
+        <h2>Who controls codependency?</h2>
+        <div style="position:relative;padding-top:56.25%;margin:16px 0;">
+            <iframe src="https://player.vimeo.com/video/1049629390" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        </div>
+        <p>who controls codependency? and why emotions are so hidden from the one who's experiencing them?</p>
+        <div style="margin-bottom:8px;">PERFORMED BY 
+        <a href="https://www.instagram.com/babemariaj" target="_blank" class="insta-link">babemariaj</a> 
+        and 
+        <a href="https://www.instagram.com/vulgarways" target="_blank" class="insta-link">vulgarways</a><br>
+        CREATED BY 
+        <a href="https://www.instagram.com/mpalamarcuk" target="_blank" class="insta-link">mpalamarcuk</a> 
+        and 
+        <a href="https://www.instagram.com/milo2001.xyz" target="_blank" class="insta-link">milo2001.xyz</a>
+        </div>
+        <img src="project1.JPG" style="width:100%;margin-top:16px;">
+        <img src="project3.JPG" style="width:100%;margin-top:16px;">
+        <img src="project4.JPG" style="width:100%;margin-top:16px;">
+        <img src="project5.JPG" style="width:100%;margin-top:16px;">
+    `,
+    project3: `
+        <h2>Desire, Control, and Sanctity</h2>
+        <div style="position:relative;padding-top:56.25%;margin:16px 0;">
+            <iframe src="https://player.vimeo.com/video/1049629390" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        </div>
+        <p>In this series, visual artist Marie Viktoriia 
+        <a href="https://www.instagram.com/babemarieviktoriia" target="_blank" class="insta-link">babemarieviktoriia</a> 
+        and photographer 
+        <a href="https://www.instagram.com/burjmak" target="_blank" class="insta-link">burjmak</a> 
+        stage a quiet confrontation between desire, control, and sanctity. Shot in the intimacy of a hotel room, the images draw on religious iconography and fetish aesthetics to question how vulnerability and power coexist within the same frame. Lace, fur, and restraint become visual metaphors, not merely for seduction, but for the ways femininity is read, performed, and consumed. Viktoriia's gaze refuses simplification; each gesture oscillates between offering and defiance, between obedience and domination.</p>
+        <img src="project6.JPG" style="width:100%;margin-top:16px;">
+        <img src="project7.JPG" style="width:100%;margin-top:16px;">
+        <img src="project8.JPG" style="width:100%;margin-top:16px;">
+        <img src="project9.JPG" style="width:100%;margin-top:16px;">
+    `
+};
+
+const modal = document.getElementById('projectModal');
+const content = document.getElementById('projectContent');
+const closeBtn = document.getElementById('closeProject');
+
+document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
+    item.addEventListener('click', () => {
+        const id = item.dataset.project;
+        if (projectsData[id]) {
+            content.innerHTML = projectsData[id];
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+modal.addEventListener('click', e => {
+    if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
     </script>
 </body>
 </html>
