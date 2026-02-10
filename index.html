@@ -38,9 +38,9 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(11px);
+            -webkit-backdrop-filter: blur(11px);
             z-index: 1001;
         }
 
@@ -105,10 +105,10 @@
             top: 0;
             left: 0;
             right: 0;
-            padding-top: 96px;
-            background: rgba(255, 255, 255, 0.1);
+            padding-top: 90px;
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blu(11px);
             z-index: 1000;
             max-height: 0;
             overflow: hidden;
@@ -167,6 +167,11 @@
         .menu-items a:hover,
         .menu-items .social-link:hover {
             color: #666;
+        }
+
+        .menu-items a.active {
+            color: #000;
+            font-weight: 500;
         }
 
         .menu-items .social-link {
@@ -361,7 +366,7 @@
     <div class="dropdown-menu" id="dropdownMenu">
         <div class="menu-content">
             <div class="menu-items">
-                <a href="#" data-filter="performance">performances</a>
+                <a href="#" data-filter="performance" class="active">performances</a>
                 <a href="#" data-filter="project">projects</a>
                 <a href="#info">info</a>
                 <a href="#" data-filter="press">press</a>
@@ -528,19 +533,27 @@
 
 
 
-    <!-- SECOND PROJECT SECTION -->
     <div class="gallery-item" data-category="project">
-        <div class="image-container">
-            <!-- project6.JPG will be inserted below after text -->
-        </div>
         <div class="gallery-caption">
 In this series, visual artist Marie Viktoriia [@babemarieviktoriia] and photographer [@burjmak] stage a quiet confrontation between desire, control, and sanctity. Shot in the intimacy of a hotel room, the images draw on religious iconography and fetish aesthetics to question how vulnerability and power coexist within the same frame. Lace, fur, and restraint become visual metaphors, not merely for seduction, but for the ways femininity is read, performed, and consumed. Viktoriia's gaze refuses simplification; each gesture oscillates between offering and defiance, between obedience and domination.
-</div>
+        </div>
+
+        <div class="image-container">
+            <img src="project6.JPG" class="gallery-image" loading="lazy" alt="">
+        </div>
+
+        <div class="image-container">
+            <img src="project7.JPG" class="gallery-image" loading="lazy" alt="">
+        </div>
+
+        <div class="image-container">
+            <img src="project8.JPG" class="gallery-image" loading="lazy" alt="">
+        </div>
+
+        <div class="image-container">
+            <img src="project9.JPG" class="gallery-image" loading="lazy" alt="">
+        </div>
     </div>
-    <img src="project6.JPG" class="gallery-image" loading="lazy" alt="">
-    <img src="project7.JPG" class="gallery-image" loading="lazy" alt="">
-    <img src="project8.JPG" class="gallery-image" loading="lazy" alt="">
-    <img src="project9.JPG" class="gallery-image" loading="lazy" alt="">
 
 </div>
         </section>
@@ -651,6 +664,8 @@ In this series, visual artist Marie Viktoriia [@babemarieviktoriia] and photogra
                 e.preventDefault();
 
                 const filter = link.dataset.filter;
+                menuLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
 
                 infoSection.classList.add('hidden');
                 gallerySection.style.display = 'block';
@@ -679,7 +694,7 @@ In this series, visual artist Marie Viktoriia [@babemarieviktoriia] and photogra
 
         /* Initial reveal */
         window.addEventListener('load', () => {
-            showItems('all');
+            showItems('performance');
         });
     </script>
 </body>
