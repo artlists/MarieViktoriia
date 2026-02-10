@@ -599,13 +599,15 @@
 
     /* Project collage previews */
 
+/* Minimal project collage */
+
 .project-collage {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(2, minmax(140px, auto));
-    gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(180px, auto);
+    gap: 2px;
     width: 100%;
-    background: transparent;
+    background: #fff;
 }
 
 .project-collage img {
@@ -613,21 +615,27 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    filter: grayscale(100%);
+    transition: filter 0.4s ease, opacity 0.4s ease;
+    opacity: 0.9;
 }
 
-/* Big image on the left */
 .project-collage img:first-child {
-    grid-row: span 2;
-    align-self: stretch;
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.project-collage:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
     /* Enable collage on mobile */
     .project-collage {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        grid-template-rows: repeat(2, minmax(120px, 1fr));
-        gap: 6px;
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(160px, auto);
+        gap: 2px;
     }
 
     .project-collage img {
