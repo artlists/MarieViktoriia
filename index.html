@@ -554,55 +554,68 @@
         cursor: pointer;
     }
 
-    /* Project banner bottom caption */
+    /* Project inline view */
 
+.project-view {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 1500;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+}
 
-    /* Project Modal */
+.project-view.active {
+    display: flex;
+}
 
-    .project-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(255,255,255,0.96);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
+.project-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(11px);
+    z-index: 1501;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 32px;
+}
+
+.project-header .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
+}
+
+.project-close {
+    cursor: pointer;
+}
+
+.project-content {
+    margin-top: 80px;
+    padding: 32px 50px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .project-header {
+        padding: 0 16px;
     }
 
-    .project-modal.active {
-        display: flex;
+    .project-content {
+        padding: 16px 16px;
     }
-
-
-    .project-modal-content {
-        max-width: 900px;
-        width: 90%;
-        max-height: 90vh;
-        overflow-y: auto;
-        background: #fff;
-        color: #000;
-        padding: 32px;
-        box-sizing: border-box;
-    }
-
-    /* Center project titles inside modal */
-
-    .project-modal-content h2 {
-        text-align: center;
-        margin-bottom: 24px;
-        font-weight: 400;
-        letter-spacing: 0.4px;
-    }
-
-        .project-modal-close {
-            position: absolute;
-            top: 14px;
-            right: 32px;
-            width: 28px;
-            height: 28px;
-            cursor: pointer;
-            z-index: 10001;
-        }
+}
 
     /* Lightbox */
 
@@ -843,7 +856,21 @@
         </div>
     </div>
 
-</div>
+            </div>
+        </section>
+
+        <section id="projectView" class="project-view">
+            <div class="project-header">
+                <div class="logo" id="projectTitle">Project</div>
+
+                <div class="project-close menu-toggle" id="closeProjectView">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="project-content" id="projectContent"></div>
         </section>
 
         <section id="info" class="info-section hidden">
@@ -888,14 +915,6 @@
         </section>
     </main>
 
-    <div class="project-modal" id="projectModal">
-        <div class="project-modal-close menu-toggle" id="closeProject">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="project-modal-content" id="projectContent"></div>
-    </div>
 
     <div class="lightbox" id="lightbox">
         <div class="lightbox-close menu-toggle" id="lightboxClose">
@@ -1216,31 +1235,46 @@ document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
 const projectsData = {
     project2: `
         <h2>Who controls codependency?</h2>
+
         <div style="position:relative;padding-top:56.25%;margin:16px 0;">
-            <iframe src="https://player.vimeo.com/video/1049629390" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+            <iframe src="https://player.vimeo.com/video/1049629390"
+                frameborder="0"
+                allowfullscreen
+                style="position:absolute;top:0;left:0;width:100%;height:100%;">
+            </iframe>
         </div>
+
         <p>who controls codependency? and why emotions are so hidden from the one who's experiencing them?</p>
-        <div style="margin-bottom:8px;">PERFORMED BY 
-        <a href="https://www.instagram.com/babemariaj" target="_blank" class="insta-link">babemariaj</a> 
-        and 
-        <a href="https://www.instagram.com/vulgarways" target="_blank" class="insta-link">vulgarways</a><br>
-        CREATED BY 
-        <a href="https://www.instagram.com/mpalamarcuk" target="_blank" class="insta-link">mpalamarcuk</a> 
-        and 
-        <a href="https://www.instagram.com/milo2001.xyz" target="_blank" class="insta-link">milo2001.xyz</a>
+
+        <div style="margin-bottom:8px;">
+            PERFORMED BY
+            <a href="https://www.instagram.com/babemariaj" target="_blank" class="insta-link">babemariaj</a>
+            and
+            <a href="https://www.instagram.com/vulgarways" target="_blank" class="insta-link">vulgarways</a><br>
+
+            CREATED BY
+            <a href="https://www.instagram.com/mpalamarcuk" target="_blank" class="insta-link">mpalamarcuk</a>
+            and
+            <a href="https://www.instagram.com/milo2001.xyz" target="_blank" class="insta-link">milo2001.xyz</a>
         </div>
+
         <img src="project1.JPG" style="width:100%;margin-top:16px;">
         <img src="project3.JPG" style="width:100%;margin-top:16px;">
         <img src="project4.JPG" style="width:100%;margin-top:16px;">
         <img src="project5.JPG" style="width:100%;margin-top:16px;">
     `,
+
     project3: `
         <h2>Desire, Control, and Sanctity</h2>
-        <p>In this series, visual artist Marie Viktoriia 
-        <a href="https://www.instagram.com/babemarieviktoriia" target="_blank" class="insta-link">babemarieviktoriia</a> 
-        and photographer 
-        <a href="https://www.instagram.com/burjmak" target="_blank" class="insta-link">burjmak</a> 
-        stage a quiet confrontation between desire, control, and sanctity. Shot in the intimacy of a hotel room, the images draw on religious iconography and fetish aesthetics to question how vulnerability and power coexist within the same frame. Lace, fur, and restraint become visual metaphors, not merely for seduction, but for the ways femininity is read, performed, and consumed. Viktoriia's gaze refuses simplification; each gesture oscillates between offering and defiance, between obedience and domination.</p>
+
+        <p>
+            In this series, visual artist Marie Viktoriia
+            <a href="https://www.instagram.com/babemarieviktoriia" target="_blank" class="insta-link">babemarieviktoriia</a>
+            and photographer
+            <a href="https://www.instagram.com/burjmak" target="_blank" class="insta-link">burjmak</a>
+            stage a quiet confrontation between desire, control, and sanctity.
+        </p>
+
         <img src="project6.JPG" style="width:100%;margin-top:16px;">
         <img src="project7.JPG" style="width:100%;margin-top:16px;">
         <img src="project8.JPG" style="width:100%;margin-top:16px;">
@@ -1248,47 +1282,54 @@ const projectsData = {
     `
 };
 
+const projectView = document.getElementById('projectView');
+const projectContent = document.getElementById('projectContent');
+const projectTitle = document.getElementById('projectTitle');
+const closeProject = document.getElementById('closeProjectView');
+
+const galleryGrid = document.querySelector('.gallery-grid');
 const siteTitle = document.getElementById('siteTitle');
 const defaultTitle = siteTitle.textContent;
-let isProjectOpen = false;
-const modal = document.getElementById('projectModal');
-const content = document.getElementById('projectContent');
-const closeBtn = document.getElementById('closeProject');
 
 document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
     item.addEventListener('click', () => {
         const id = item.dataset.project;
-        if (projectsData[id]) {
-            content.innerHTML = projectsData[id];
 
-            const title = content.querySelector('h2');
-            if (title) {
-                siteTitle.textContent = title.textContent;
-                isProjectOpen = true;
-            }
+        if (!projectsData[id]) return;
 
-            modal.classList.add('active');
-            closeBtn.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        galleryGrid.style.display = 'none';
+
+        projectContent.innerHTML = projectsData[id];
+
+        const h2 = projectContent.querySelector('h2');
+        projectTitle.textContent = h2 ? h2.textContent : 'Project';
+        siteTitle.textContent = projectTitle.textContent;
+
+        projectView.classList.add('active');
+        closeProject.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'instant' });
     });
 });
 
-closeBtn.addEventListener('click', () => {
-    modal.classList.remove('active');
-    closeBtn.classList.remove('active');
-    document.body.style.overflow = '';
-    isProjectOpen = false;
-    siteTitle.textContent = defaultTitle;
-});
+function closeProjectView() {
+    projectView.classList.remove('active');
+    closeProject.classList.remove('active');
 
-modal.addEventListener('click', e => {
-    if (e.target === modal) {
-        modal.classList.remove('active');
-        closeBtn.classList.remove('active');
-        document.body.style.overflow = '';
-        isProjectOpen = false;
-        siteTitle.textContent = defaultTitle;
+    galleryGrid.style.display = 'flex';
+
+    siteTitle.textContent = defaultTitle;
+
+    projectContent.innerHTML = '';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+closeProject.addEventListener('click', closeProjectView);
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && projectView.classList.contains('active')) {
+        closeProjectView();
     }
 });
     </script>
