@@ -626,14 +626,14 @@
     .project-collage {
         display: grid;
         grid-template-columns: 1.5fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: repeat(2, minmax(120px, 1fr));
         gap: 6px;
     }
 
     .project-collage img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
     }
 }
 
