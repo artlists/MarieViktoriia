@@ -581,6 +581,55 @@
         cursor: pointer;
         color: #000;
     }
+
+    /* Lightbox */
+
+    .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.95);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    }
+
+    .lightbox.active {
+        display: flex;
+    }
+
+    .lightbox img {
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+        position: absolute;
+        color: #fff;
+        font-size: 28px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .lightbox-close {
+        top: 20px;
+        right: 24px;
+    }
+
+    .lightbox-prev {
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .lightbox-next {
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
     </style>
 </head>
 <body>
@@ -789,6 +838,13 @@
         <div class="project-modal-content" id="projectContent"></div>
     </div>
 
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightboxClose">✕</div>
+        <div class="lightbox-prev" id="lightboxPrev">‹</div>
+        <img id="lightboxImage" src="">
+        <div class="lightbox-next" id="lightboxNext">›</div>
+    </div>
+
     <script>
         const menuToggle = document.getElementById('menuToggle');
         const dropdownMenu = document.getElementById('dropdownMenu');
@@ -894,6 +950,82 @@
         window.addEventListener('load', () => {
             showItems('performance');
         });
+    </script>
+    <script>
+/* Lightbox for project images */
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImage');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+
+let lightboxImages = [];
+let currentIndex = 0;
+
+function initLightbox() {
+    lightboxImages = Array.from(
+        document.querySelectorAll('#projectContent img')
+    );
+
+    lightboxImages.forEach((img, index) => {
+        img.style.cursor = 'zoom-in';
+
+        img.addEventListener('click', () => {
+            openLightbox(index);
+        });
+    });
+}
+
+function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = lightboxImages[index].src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function showPrev() {
+    currentIndex =
+        (currentIndex - 1 + lightboxImages.length) % lightboxImages.length;
+    lightboxImg.src = lightboxImages[currentIndex].src;
+}
+
+function showNext() {
+    currentIndex =
+        (currentIndex + 1) % lightboxImages.length;
+    lightboxImg.src = lightboxImages[currentIndex].src;
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', showPrev);
+lightboxNext.addEventListener('click', showNext);
+
+lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+});
+
+document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+});
+
+/* Re-init when project opens */
+
+document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
+    item.addEventListener('click', () => {
+        setTimeout(() => {
+            initLightbox();
+        }, 100);
+    });
+});
     </script>
     <script>
 const projectsData = {
