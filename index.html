@@ -368,6 +368,18 @@
             background: #000;
         }
 
+        /* Vertical videos: correct fullscreen scaling */
+
+        .local-video:fullscreen,
+        .local-video:-webkit-full-screen,
+        .local-video:-moz-full-screen,
+        .local-video:-ms-fullscreen {
+            object-fit: contain !important;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
         /* убираем дебильный фокус */
         .local-video:focus {
             outline: none;
@@ -618,6 +630,23 @@
         padding: 0;
     }
 
+    .lightbox-close {
+        top: 20px;
+        right: 24px;
+    }
+
+    .lightbox-prev {
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .lightbox-next {
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
     /* Large invisible hit area */
 
     .lightbox-close::before,
@@ -626,6 +655,7 @@
         content: "";
         position: absolute;
         inset: -24px;
+        pointer-events: auto;
     }
 
     /* Mobile: hide arrows, keep swipe */
