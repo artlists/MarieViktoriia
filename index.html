@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marie Viktoriia</title>
+    <meta name="description" content="Marie Viktoriia — performance artist and visual creator working across live performance, video, and conceptual image-making.">
+    <meta property="og:title" content="Marie Viktoriia">
+    <meta property="og:description" content="Performance artist and visual creator working with body, vulnerability, and media.">
+    <meta property="og:image" content="https://img.youtube.com/vi/aFO2vUTgmKI/maxresdefault.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500&family=Arial:wght@400&display=swap" rel="stylesheet">
@@ -264,11 +268,13 @@
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
             width: 100%;
+            pointer-events: none;
         }
 
         .gallery-item.visible {
             opacity: 1;
             transform: translateY(0);
+            pointer-events: auto;
         }
 
         @keyframes fadeInUp {
@@ -390,7 +396,7 @@
     <header>
         <div class="header-content">
             <div class="logo">Marie Viktoriia</div>
-            <div class="menu-toggle" id="menuToggle">
+            <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -445,7 +451,7 @@
     <div class="gallery-item" data-category="performance">
         <div class="image-container">
           <a href="https://www.youtube.com/watch?v=1iBAMnVBhl4" target="_blank" class="video-link">
-            <img src="https://img.youtube.com/vi/1iBAMnVBhl4/maxresdefault.jpg" class="gallery-image">
+            <img src="https://img.youtube.com/vi/1iBAMnVBhl4/hqdefault.jpg" class="gallery-image" loading="lazy" alt="I wish I could give birth to cat, performance still" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/1iBAMnVBhl4/default.jpg';">
             <div class="play-overlay">watch</div>
           </a>
         </div>
@@ -464,7 +470,7 @@
     <div class="gallery-item" data-category="press">
         <div class="image-container">
             <a href="https://www.instagram.com/p/DALcNFqBRs7/" target="_blank">
-                <img src="sabukaru.JPG" class="gallery-image" loading="lazy" alt="">
+                <img src="sabukaru.JPG" class="gallery-image" loading="lazy" alt="Sabukaru Online article featuring Marie Viktoriia">
             </a>
         </div>
         <div class="gallery-caption">Sabukaru Online</div>
@@ -473,7 +479,7 @@
     <div class="gallery-item" data-category="press">
         <div class="image-container">
             <a href="https://gatamagazine.com/articles/art/mariasbear" target="_blank">
-                <img src="gata.JPG" class="gallery-image" loading="lazy" alt="">
+                <img src="gata.JPG" class="gallery-image" loading="lazy" alt="GATA Magazine feature on Marie Viktoriia">
             </a>
         </div>
         <div class="gallery-caption">GATA Magazine</div>
@@ -482,7 +488,7 @@
     <div class="gallery-item" data-category="press">
         <div class="image-container">
             <a href="https://www.instagram.com/p/DHEbdyDivLP/" target="_blank">
-                <img src="cad.JPG" class="gallery-image" loading="lazy" alt="">
+                <img src="cad.JPG" class="gallery-image" loading="lazy" alt="CAD Magazine editorial featuring Marie Viktoriia">
             </a>
         </div>
         <div class="gallery-caption">CAD Magazine</div>
@@ -491,7 +497,7 @@
     <div class="gallery-item" data-category="press">
         <div class="image-container">
             <a href="https://www.instagram.com/p/DP1AbZwkx6r/" target="_blank">
-                <img src="gata2.JPG" class="gallery-image" loading="lazy" alt="">
+                <img src="gata2.JPG" class="gallery-image" loading="lazy" alt="GATA Magazine second feature on Marie Viktoriia">
             </a>
         </div>
         <div class="gallery-caption">GATA Magazine</div>
@@ -500,7 +506,7 @@
     <div class="gallery-item" data-category="press">
         <div class="image-container">
             <a href="https://www.instagram.com/p/DQtml8jiUsk/" target="_blank">
-                <img src="sabukaru2.JPG" class="gallery-image" loading="lazy" alt="">
+                <img src="sabukaru2.JPG" class="gallery-image" loading="lazy" alt="Sabukaru Online second article featuring Marie Viktoriia">
             </a>
         </div>
         <div class="gallery-caption">Sabukaru Online</div>
@@ -617,8 +623,9 @@ In this series, visual artist Marie Viktoriia [@babemarieviktoriia] and photogra
         const dropdownMenu = document.getElementById('dropdownMenu');
 
         menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.classList.toggle('active');
             dropdownMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', expanded);
         });
 
         document.addEventListener('keydown', (e) => {
@@ -669,7 +676,12 @@ In this series, visual artist Marie Viktoriia [@babemarieviktoriia] and photogra
                         item.classList.add('visible');
                     });
                 } else {
-                    item.style.display = 'none';
+                    item.style.display = 'block';
+
+                    setTimeout(() => {
+                        item.classList.remove('visible');
+                        item.style.display = 'none';
+                    }, 600);
                 }
             });
         }
