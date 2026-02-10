@@ -357,8 +357,28 @@
             transform: none !important;
         }
 
+        /* Local video player */
+
+        .local-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        /* убираем дебильный фокус */
+        .local-video:focus {
+            outline: none;
+        }
+
         .image-container:hover .gallery-image:not(.vimeo-video) {
             transform: scale(1.1);
+        }
+
+        /* Disable hover zoom for local videos */
+        .gallery-item:hover .local-video,
+        .local-video:hover {
+            transform: none !important;
         }
 
         .gallery-caption {
@@ -467,39 +487,14 @@
 
     <div class="gallery-item" data-category="performance">
         <div class="image-container">
-          <iframe
-              class="gallery-image vimeo-video"
-              src="https://www.youtube.com/embed/aFO2vUTgmKI?controls=0&rel=0&modestbranding=1&showinfo=0&fs=0"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-          </iframe>
-        </div>
-        <div class="gallery-caption">carrot and stick, 2025</div>
-    </div>
-
-    <div class="gallery-item" data-category="performance">
-        <div class="image-container">
-          <iframe
-              class="gallery-image vimeo-video"
-              src="https://www.youtube.com/embed/2KFoyd2YaL8?controls=0&rel=0&modestbranding=1&showinfo=0&fs=0"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-          </iframe>
-        </div>
-        <div class="gallery-caption">THE ANTI-MASTRBATION CROSS, 2025</div>
-    </div>
-
-    <div class="gallery-item" data-category="performance">
-        <div class="image-container">
-          <iframe
-              class="gallery-image vimeo-video"
-              src="https://www.youtube.com/embed/1iBAMnVBhl4?controls=0&rel=0&modestbranding=1&showinfo=0&fs=0"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-          </iframe>
+          <video
+              class="gallery-image local-video"
+              src="wish.MP4"
+              poster="https://img.youtube.com/vi/1iBAMnVBhl4/hqdefault.jpg"
+              controls
+              preload="metadata"
+              playsinline>
+          </video>
         </div>
         <div class="gallery-caption">
             I wish I could give birth to cat, 2025<br><br>
@@ -510,6 +505,33 @@
         </div>
     </div>
 
+    <div class="gallery-item" data-category="performance">
+        <div class="image-container">
+          <video
+              class="gallery-image local-video"
+              src="anti.MP4"
+              poster="https://img.youtube.com/vi/2KFoyd2YaL8/maxresdefault.jpg"
+              controls
+              preload="metadata"
+              playsinline>
+          </video>
+        </div>
+        <div class="gallery-caption">THE ANTI-MASTRBATION CROSS, 2025</div>
+    </div>
+
+    <div class="gallery-item" data-category="performance">
+        <div class="image-container">
+          <video
+              class="gallery-image local-video"
+              src="carrot.MP4"
+              poster="https://img.youtube.com/vi/aFO2vUTgmKI/maxresdefault.jpg"
+              controls
+              preload="metadata"
+              playsinline>
+          </video>
+        </div>
+        <div class="gallery-caption">carrot and stick, 2025</div>
+    </div>
 
     <!-- PRESS -->
 
