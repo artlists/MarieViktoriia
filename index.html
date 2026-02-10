@@ -338,18 +338,6 @@
             padding-top: 56.25%; /* 16:9 ratio */
         }
 
-        /* Vertical / portrait performance preview */
-
-        .image-container.vertical-video {
-            padding-top: 100%;
-        }
-
-        .image-container.vertical-video .gallery-image,
-        .image-container.vertical-video .local-video {
-            object-fit: contain;
-            background: #000;
-        }
-
         .gallery-image {
             position: absolute;
             top: 0;
@@ -724,7 +712,7 @@
     <!-- PERFORMANCES -->
 
     <div class="gallery-item" data-category="performance">
-        <div class="image-container vertical-video">
+        <div class="image-container">
           <video
               class="gallery-image local-video"
               src="wish.MP4"
