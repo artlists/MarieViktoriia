@@ -609,33 +609,32 @@
     .lightbox-next {
         position: absolute;
         color: #fff;
-        font-size: 36px;
+        font-size: 22px;
         cursor: pointer;
         user-select: none;
-        padding: 16px;
-        background: rgba(0,0,0,0.4);
-        border-radius: 50%;
+        background: none;
+        border-radius: 0;
         line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: 0;
     }
 
-    .lightbox-close {
-        top: 20px;
-        right: 24px;
+    /* Large invisible hit area */
+
+    .lightbox-close::before,
+    .lightbox-prev::before,
+    .lightbox-next::before {
+        content: "";
+        position: absolute;
+        inset: -24px;
     }
 
-    .lightbox-prev {
-        left: 24px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+    /* Mobile: hide arrows, keep swipe */
 
-    .lightbox-next {
-        right: 24px;
-        top: 50%;
-        transform: translateY(-50%);
+    @media (max-width: 768px) {
+        .lightbox-prev,
+        .lightbox-next {
+            display: none;
+        }
     }
     </style>
 </head>
