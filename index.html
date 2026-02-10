@@ -39,6 +39,8 @@
 
         /* Header */
         header {
+            opacity: 0;
+            transition: opacity 0.4s ease;
             position: fixed;
             top: 0;
             left: 0;
@@ -663,6 +665,12 @@
             display: none;
         }
     }
+    /* Fade-in header on load */
+
+    header.visible,
+    .site-header.visible {
+        opacity: 1;
+    }
     </style>
 </head>
 <body>
@@ -1070,6 +1078,14 @@ infoLink.addEventListener('click', (e) => {
 
         /* Initial reveal */
         window.addEventListener('load', () => {
+
+            const header = document.querySelector('header, .site-header');
+            if (header) {
+                requestAnimationFrame(() => {
+                    header.classList.add('visible');
+                });
+            }
+
             showItems('performance');
         });
     </script>
