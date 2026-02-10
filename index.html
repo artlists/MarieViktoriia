@@ -389,6 +389,12 @@
             transform: scale(1.1);
         }
 
+        /* Mobile / scroll hint zoom */
+
+        .gallery-item.in-view .gallery-image:not(.vimeo-video) {
+            transform: scale(1.08);
+        }
+
         /* Disable hover zoom for local videos */
         .gallery-item:hover .local-video,
         .local-video:hover {
@@ -945,6 +951,11 @@
                     }, 600);
                 }
             });
+
+            // Re-init scroll zoom after filtering
+            setTimeout(() => {
+                initScrollZoom();
+            }, 300);
         }
 
         menuLinks.forEach(link => {
@@ -1060,9 +1071,31 @@ infoLink.addEventListener('click', (e) => {
         }
 
 
+
+        /* Scroll-based zoom hint (mobile / tablet) */
+
+        function initScrollZoom() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    } else {
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, {
+                threshold: 0.6
+            });
+
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                observer.observe(item);
+            });
+        }
+
         /* Initial reveal */
         window.addEventListener('load', () => {
             showItems('performance');
+            initScrollZoom();
         });
     </script>
     <script>
