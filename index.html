@@ -119,11 +119,18 @@
             z-index: 1000;
 
             transform: translateY(-100%);
-            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            pointer-events: none;
+
+            transition:
+                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.2s ease;
         }
 
         .dropdown-menu.active {
             transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .menu-content {
@@ -1078,6 +1085,9 @@ infoLink.addEventListener('click', (e) => {
 
         /* Initial reveal */
         window.addEventListener('load', () => {
+
+            // Ensure menu is hidden on first paint
+            dropdownMenu.classList.remove('active');
 
             const header = document.querySelector('header, .site-header');
             if (header) {
