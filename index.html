@@ -460,6 +460,40 @@
             body {
                 overscroll-behavior-x: none;
             }
+
+            /* Project modal mobile fixes */
+
+            .project-modal-content h2 {
+                font-size: 18px;
+                line-height: 1.2;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 12px;
+            }
+
+            .project-modal-content p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .project-modal-content img,
+            .project-modal-content video,
+            .project-modal-content iframe {
+                width: 100%;
+                height: auto;
+                max-height: 60vh;
+                object-fit: cover;
+                margin: 12px 0;
+            }
+
+            .project-modal-content {
+                padding: 16px 14px;
+            }
+
+            .project-modal-content > * {
+                max-width: 100%;
+            }
         }
 
         /* Cursor Effect */
