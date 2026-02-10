@@ -1308,8 +1308,15 @@ document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
         projectContent.innerHTML = projectsData[id];
 
         const h2 = projectContent.querySelector('h2');
-        projectTitle.textContent = h2 ? h2.textContent : 'Project';
-        siteTitle.textContent = projectTitle.textContent;
+
+        if (h2) {
+            projectTitle.textContent = h2.textContent;
+            siteTitle.textContent = h2.textContent;
+            h2.remove(); // remove duplicate title from content
+        } else {
+            projectTitle.textContent = 'Project';
+            siteTitle.textContent = 'Project';
+        }
 
         projectView.classList.add('active');
         closeProject.classList.add('active');
