@@ -287,23 +287,34 @@
             overflow: hidden;
             margin-bottom: 16px;
             background: #000;
-            aspect-ratio: 16 / 9;
-            display: flex;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 ratio */
         }
 
         .gallery-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             display: block;
             object-fit: cover;
-            object-position: center 60%;
-            transform: scale(1.08);
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            position: absolute;
-            inset: 0;
         }
 
-        .image-container:hover .gallery-image {
+        .vimeo-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            object-fit: contain;
+            background: #000;
+            transform: none !important;
+        }
+
+        .image-container:hover .gallery-image:not(.vimeo-video) {
             transform: scale(1.1);
         }
 
@@ -500,11 +511,10 @@
 
     <div class="gallery-item" data-category="project">
         <div class="image-container">
-            <iframe class="gallery-image"
+            <iframe class="gallery-image vimeo-video"
                 src="https://player.vimeo.com/video/1049629390"
                 frameborder="0"
-                allowfullscreen
-                style="aspect-ratio:16/9; width:100%; height:auto;">
+                allowfullscreen>
             </iframe>
         </div>
     </div>
