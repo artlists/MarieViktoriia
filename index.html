@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500&family=Arial:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* Prevent menu flash on first paint */
+        .dropdown-menu {
+            will-change: transform, opacity;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -118,8 +122,9 @@
             -webkit-backdrop-filter: blur(11px);
             z-index: 1000;
 
-            transform: translateY(-100%);
+            transform: translateY(-120%);
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
 
             transition:
@@ -130,6 +135,7 @@
         .dropdown-menu.active {
             transform: translateY(0);
             opacity: 1;
+            visibility: visible;
             pointer-events: auto;
         }
 
@@ -907,6 +913,9 @@
         const dropdownMenu = document.getElementById('dropdownMenu');
 
         menuToggle.addEventListener('click', () => {
+
+            dropdownMenu.style.visibility = '';
+
             const expanded = menuToggle.classList.toggle('active');
             dropdownMenu.classList.toggle('active');
             menuToggle.setAttribute('aria-expanded', expanded);
@@ -1086,8 +1095,9 @@ infoLink.addEventListener('click', (e) => {
         /* Initial reveal */
         window.addEventListener('load', () => {
 
-            // Ensure menu is hidden on first paint
+            // Force-hide menu before first render
             dropdownMenu.classList.remove('active');
+            dropdownMenu.style.visibility = 'hidden';
 
             const header = document.querySelector('header, .site-header');
             if (header) {
