@@ -591,15 +591,19 @@
     align-self: stretch;
 }
 
-/* Mobile: simplify collage */
 @media (max-width: 768px) {
+    /* Enable collage on mobile */
     .project-collage {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 6px;
     }
 
-    .project-collage img:not(:first-child) {
-        display: none;
+    .project-collage img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }
 
