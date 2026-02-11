@@ -269,6 +269,18 @@
             margin: 0 auto;
         }
 
+/* Align Press section like Info */
+
+.gallery-item[data-category="press"] {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+.gallery-item[data-category="press"] .gallery-caption {
+    text-align: left;
+}
+
         .info-section.hidden {
             display: none;
         }
@@ -360,7 +372,7 @@
         .gallery-grid {
             display: flex;
             flex-direction: column;
-            gap: 80px;
+            gap: 33px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -371,6 +383,7 @@
             transition: opacity 0.6s ease, transform 0.6s ease;
             width: 100%;
             pointer-events: none;
+            margin-bottom: 0;
         }
 
         .gallery-item.visible {
@@ -474,6 +487,57 @@
             margin-bottom: 5px;
         }
 
+        /* Press banner style */
+
+        .press-banner {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .press-link {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+        }
+
+        .press-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .press-link span {
+            position: absolute;
+            left: 24px;
+            bottom: 16px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: 0.4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+
+        /* Press links: black, no default blue */
+
+        .gallery-item[data-category="press"] a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .gallery-item[data-category="press"] a:visited {
+            color: #000;
+        }
+
+        .gallery-item[data-category="press"] a:hover {
+            color: #000;
+            opacity: 0.7;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .menu-content {
@@ -520,7 +584,7 @@
             }
 
             .gallery-grid {
-                gap: 48px;
+                gap: 33px;
             }
 
             .image-container {
@@ -913,50 +977,40 @@
 
     <!-- PRESS -->
 
-    <div class="gallery-item" data-category="press">
-        <div class="image-container">
-            <a href="https://www.instagram.com/p/DALcNFqBRs7/" target="_blank">
-                <img src="sabukaru.JPG" class="gallery-image" loading="lazy" alt="Sabukaru Online article featuring Marie Viktoriia">
-            </a>
-        </div>
-        <div class="gallery-caption">Sabukaru Online</div>
-    </div>
+<div class="gallery-item press-banner" data-category="press">
+    <a href="https://www.instagram.com/p/DALcNFqBRs7/" target="_blank" class="press-link">
+        <img src="sabukaru.JPG">
+        <span>Sabukaru Online - Chaos into Creative Fuel</span>
+    </a>
+</div>
 
-    <div class="gallery-item" data-category="press">
-        <div class="image-container">
-            <a href="https://gatamagazine.com/articles/art/mariasbear" target="_blank">
-                <img src="gata.JPG" class="gallery-image" loading="lazy" alt="GATA Magazine feature on Marie Viktoriia">
-            </a>
-        </div>
-        <div class="gallery-caption">GATA Magazine</div>
-    </div>
+<div class="gallery-item press-banner" data-category="press">
+    <a href="https://gatamagazine.com/articles/art/mariasbear" target="_blank" class="press-link">
+        <img src="gata.JPG">
+        <span>GATA Magazine - A LIMINAL LOVE STORY</span>
+    </a>
+</div>
 
-    <div class="gallery-item" data-category="press">
-        <div class="image-container">
-            <a href="https://www.instagram.com/p/DHEbdyDivLP/" target="_blank">
-                <img src="cad.JPG" class="gallery-image" loading="lazy" alt="CAD Magazine editorial featuring Marie Viktoriia">
-            </a>
-        </div>
-        <div class="gallery-caption">CAD Magazine</div>
-    </div>
+<div class="gallery-item press-banner" data-category="press">
+    <a href="https://www.instagram.com/p/DHEbdyDivLP/" target="_blank" class="press-link">
+        <img src="cad.JPG">
+        <span>CAD Magazine - Interview with</span>
+    </a>
+</div>
 
-    <div class="gallery-item" data-category="press">
-        <div class="image-container">
-            <a href="https://www.instagram.com/p/DP1AbZwkx6r/" target="_blank">
-                <img src="gata2.JPG" class="gallery-image" loading="lazy" alt="GATA Magazine second feature on Marie Viktoriia">
-            </a>
-        </div>
-        <div class="gallery-caption">GATA Magazine</div>
-    </div>
+<div class="gallery-item press-banner" data-category="press">
+    <a href="https://www.instagram.com/p/DP1AbZwkx6r/" target="_blank" class="press-link">
+        <img src="gata2.JPG">
+        <span>GATA Magazine - Obedience</span>
+    </a>
+</div>
 
-    <div class="gallery-item" data-category="press">
-        <div class="image-container">
-            <a href="https://www.instagram.com/p/DQtml8jiUsk/" target="_blank">
-                <img src="sabukaru2.JPG" class="gallery-image" loading="lazy" alt="Sabukaru Online second article featuring Marie Viktoriia">
-            </a>
-        </div>
-        <div class="gallery-caption">Sabukaru Online</div>
-    </div>
+<div class="gallery-item press-banner" data-category="press">
+    <a href="https://www.instagram.com/p/DQtml8jiUsk/" target="_blank" class="press-link">
+        <img src="sabukaru2.JPG">
+        <span>Sabukaru Online - Blurring The Lines</span>
+    </a>
+</div>
 
 
     <!-- PROJECTS -->
