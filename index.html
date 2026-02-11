@@ -491,8 +491,8 @@
 
         .press-banner {
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 0;
         }
 
         .press-link {
@@ -671,17 +671,28 @@
             .project-modal-content > * {
                 max-width: 100%;
             }
-        
-            /* Mobile press banners: full-width and taller */
+
+            /* Press banners: full-width & thinner on mobile */
+
+            .gallery-item[data-category="press"] {
+                padding-left: 0;
+                padding-right: 0;
+                max-width: none;
+            }
+
+            .press-banner {
+                width: 100vw;
+                margin-left: -16px;
+                margin-right: -16px;
+            }
 
             .press-link {
-                height: 180px;
+                height: 96px;
             }
 
             .press-link span {
-                font-size: 16px;
-                line-height: 1.35;
-                padding: 20px 20px;
+                font-size: 15px;
+                padding: 14px 18px;
             }
         }
 
