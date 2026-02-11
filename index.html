@@ -111,9 +111,22 @@
             transition: all 0.3s ease;
         }
 
+        .project-close span {
+            position: absolute;
+            width: 24px;
+            height: 1px;
+            background: var(--text);
+            left: 4px;
+            transition: all 0.3s ease;
+        }
+
         .menu-toggle span:nth-child(1) { top: 10px; }
         .menu-toggle span:nth-child(2) { top: 16px; }
         .menu-toggle span:nth-child(3) { top: 22px; }
+
+        .project-close span:nth-child(1) { top: 10px; }
+        .project-close span:nth-child(2) { top: 16px; }
+        .project-close span:nth-child(3) { top: 22px; }
 
         .menu-toggle.active span:nth-child(1) {
             transform: rotate(45deg);
@@ -125,6 +138,22 @@
         }
 
         .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 16px;
+        }
+
+        /* Project close button animation (same as menu) */
+
+        .project-close.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 16px;
+        }
+
+        .project-close.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .project-close.active span:nth-child(3) {
             transform: rotate(-45deg);
             top: 16px;
         }
@@ -1422,7 +1451,9 @@ document.querySelectorAll('.gallery-item[data-project]').forEach(item => {
 
         projectView.classList.add('active');
         projectView.style.display = 'flex';
-        closeProject.classList.add('active');
+        requestAnimationFrame(() => {
+            closeProject.classList.add('active');
+        });
 
         projectTitle.classList.remove('show');
         requestAnimationFrame(() => {
