@@ -54,6 +54,19 @@
             opacity: 1;
         }
 
+        /* Page fade animation (used for gallery + info sections) */
+
+        .page-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .page-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Header */
         header {
             opacity: 0;
@@ -440,7 +453,7 @@
         .local-video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             background: #000;
         }
 
@@ -983,7 +996,7 @@
     </div>
 
     <main>
-        <section class="gallery">
+        <section class="gallery page-fade" id="gallerySection">
             <div class="gallery-grid">
 
     <!-- PERFORMANCES -->
@@ -992,7 +1005,7 @@
         <div class="image-container">
           <video
               class="gallery-image local-video"
-              src="wish.MP4"
+              src="wish.MP4#t=0.5"
               poster="https://img.youtube.com/vi/1iBAMnVBhl4/hqdefault.jpg"
               controls
               preload="metadata"
@@ -1118,7 +1131,7 @@
             <div class="project-content" id="projectContent"></div>
         </section>
 
-        <section id="info" class="info-section hidden">
+        <section id="info" class="info-section hidden page-fade">
 <div class="info-content">
     <h2>Bio</h2>
 
@@ -1220,25 +1233,29 @@
         const infoSection = document.getElementById('info');
         const menuLinks = document.querySelectorAll('.menu-items a[data-filter]');
         const items = document.querySelectorAll('.gallery-item');
-        const gallerySection = document.querySelector('.gallery');
+        const gallerySection = document.getElementById('gallerySection');
 
         function showItems(filter) {
             items.forEach(item => {
-                item.classList.remove('visible');
+                const match = (filter === 'all' || item.dataset.category === filter);
 
-                if (filter === 'all' || item.dataset.category === filter) {
+                if (match) {
                     item.style.display = 'block';
 
-                    requestAnimationFrame(() => {
-                        item.classList.add('visible');
-                    });
-                } else {
-                    item.style.display = 'block';
+                    // reset state so animation can replay
+                    item.classList.remove('visible');
+
+                    // force browser reflow so transition always triggers
+                    void item.offsetHeight;
 
                     setTimeout(() => {
-                        item.classList.remove('visible');
-                        item.style.display = 'none';
-                    }, 600);
+                        item.classList.add('visible');
+                    }, 40);
+
+                } else {
+                    // hide immediately to prevent layout lag / stacking
+                    item.classList.remove('visible');
+                    item.style.display = 'none';
                 }
             });
         }
@@ -1252,7 +1269,13 @@
                 link.classList.add('active');
 
                 infoSection.classList.add('hidden');
+                infoSection.classList.remove('visible');
+
                 gallerySection.style.display = 'block';
+
+                requestAnimationFrame(() => {
+                    gallerySection.classList.add('visible');
+                });
 
                 showItems(filter);
 
@@ -1273,8 +1296,14 @@ infoLink.addEventListener('click', (e) => {
     menuLinks.forEach(l => l.classList.remove('active'));
     infoLink.classList.add('active');
 
-    infoSection.classList.remove('hidden');
+    gallerySection.classList.remove('visible');
     gallerySection.style.display = 'none';
+
+    infoSection.classList.remove('hidden');
+
+    requestAnimationFrame(() => {
+        infoSection.classList.add('visible');
+    });
 
     window.scrollTo({
         top: infoSection.offsetTop - 80,
@@ -1370,6 +1399,10 @@ infoLink.addEventListener('click', (e) => {
             }
 
             showItems('performance');
+
+            requestAnimationFrame(() => {
+                gallerySection.classList.add('visible');
+            });
         });
     </script>
     <script>
